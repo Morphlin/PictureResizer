@@ -7,7 +7,7 @@ namespace PictureResizer
     /// <summary>
     /// Form providing information on the plugin.
     /// </summary>
-    public partial class FormAbout : Form
+    internal partial class FormAbout : Form
     {
         /// <summary>
         /// Windows Form Constructor.

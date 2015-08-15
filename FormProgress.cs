@@ -6,16 +6,32 @@ using System.Windows.Forms;
 
 namespace PictureResizer
 {
-    public partial class FormProgress : Form
+    /// <summary>
+    /// Form providing progress tracking for the user.
+    /// </summary>
+    internal partial class FormProgress : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly List<FileInfo> FilesToResize = new List<FileInfo>();
-        public FormProgress(FileInfo[] FilesToResizeRef)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="FilesToResizeRef"></param>
+        internal FormProgress(FileInfo[] FilesToResizeRef)
         {
             FilesToResize.AddRange(FilesToResizeRef);
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private const int CP_NOCLOSE_BUTTON = 0x200;
+        /// <summary>
+        /// 
+        /// </summary>
         protected override CreateParams CreateParams
         {
             get
@@ -26,12 +42,22 @@ namespace PictureResizer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormProgress_Load(object sender, EventArgs e)
         {
             UseWaitCursor = true;
             WorkerResizer.RunWorkerAsync(FilesToResize.ToArray());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormProgress_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (WorkerResizer.IsBusy)
@@ -41,6 +67,11 @@ namespace PictureResizer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WorkerResizer_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             int Progress = 0;
@@ -71,6 +102,11 @@ namespace PictureResizer
             }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WorkerResizer_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
             ProgressBarResize.Value = e.ProgressPercentage;
@@ -80,6 +116,11 @@ namespace PictureResizer
             ProgressBarResize.Maximum = Data.Maximum;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WorkerResizer_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             UseWaitCursor = false;
@@ -90,13 +131,21 @@ namespace PictureResizer
             Close();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
             ButtonCancel.Enabled = false;
             Close();
         }
 
-        class ProgressData
+        /// <summary>
+        /// 
+        /// </summary>
+        private class ProgressData
         {
             private readonly Image _Preview;
             internal Image Preview

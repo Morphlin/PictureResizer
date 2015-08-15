@@ -3,10 +3,13 @@ using System.Windows.Forms;
 
 namespace PictureResizer
 {
+    /// <summary>
+    /// Entry point class for the application.
+    /// </summary>
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Entry point method for the application.
         /// </summary>
         [STAThread]
         static void Main()
